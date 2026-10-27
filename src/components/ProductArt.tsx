@@ -28,6 +28,7 @@ const SEAM = "rgba(0,0,0,0.13)";
 const FOLD = "rgba(0,0,0,0.07)";
 const METAL = "#2c2622";
 const SANS = { fontFamily: "var(--font-geist-sans)" };
+const BRAND = { fontFamily: "var(--font-marcellus), serif" };
 const MONO = { fontFamily: "var(--font-geist-mono)" };
 
 const HOOK = "M150 44 V30 C150 24 157 21 157 13 C157 6 152 2 146 2 C140 2 136 6 136 11";
@@ -133,13 +134,38 @@ function Bean({ x, y, s, color, groove }: { x: number; y: number; s: number; col
   );
 }
 
-function ChestMark({ x, y, color }: { x: number; y: number; color: ColorVariant }) {
+/** The Lotline mountain mark, centered on (cx, cy). Drawn in a 100×26 box. */
+function Peaks({ cx, cy, width, color }: { cx: number; cy: number; width: number; color: string }) {
+  const s = width / 100;
   return (
-    <g>
-      <Bean x={x} y={y - 3} s={0.62} color={color.ink} groove={color.hex} />
-      <text x={x + 8} y={y} fontSize="8.5" fontWeight="900" letterSpacing="0.3" style={{ ...SANS, ...fill(color.ink) }}>
+    <g transform={`translate(${cx - width / 2} ${cy - 13 * s}) scale(${s})`} fill="none" strokeWidth="4.2" style={stroke(color)}>
+      <path d="M1 25 C14 16 26 6 34 3.5 C38 2.3 41 3 44 5.5 C52 12 60 19 66 25" />
+      <path d="M46 8 C50 5 55 2.8 59 2.8 C62 2.8 65 4 69 6.5 C80 13 90 19 99 25" />
+    </g>
+  );
+}
+
+function Wordmark({ cx, y, size, color, sub }: { cx: number; y: number; size: number; color: string; sub?: boolean }) {
+  return (
+    <g style={fill(color)}>
+      <text x={cx} y={y} fontSize={size} textAnchor="middle" letterSpacing={size * 0.08} style={BRAND}>
         {brand.mark}
       </text>
+      {sub && (
+        <text x={cx} y={y + size * 0.62} fontSize={size * 0.3} textAnchor="middle" letterSpacing={size * 0.09} style={SANS}>
+          {brand.descriptor.toUpperCase()}
+        </text>
+      )}
+    </g>
+  );
+}
+
+function ChestMark({ x, y, color }: { x: number; y: number; color: ColorVariant }) {
+  const cx = x + 22;
+  return (
+    <g>
+      <Peaks cx={cx} cy={y - 12} width={26} color={color.ink} />
+      <Wordmark cx={cx} y={y} size={9} color={color.ink} />
     </g>
   );
 }
@@ -164,7 +190,7 @@ function NeckTag({ y, color }: { y: number; color: ColorVariant }) {
   return (
     <g>
       <rect x="134" y={y} width="32" height="11" rx="1" style={fill(color.ink)} />
-      <text x="150" y={y + 7.6} fontSize="5.4" fontWeight="900" textAnchor="middle" style={{ ...SANS, ...fill(color.hex) }}>
+      <text x="150" y={y + 7.8} fontSize="6" textAnchor="middle" letterSpacing="0.6" style={{ ...BRAND, ...fill(color.hex) }}>
         {brand.mark}
       </text>
     </g>
@@ -368,10 +394,8 @@ function Cap({ product, color, side, shade }: PartProps) {
           <path d="M66 258 C100 286 200 286 234 258" fill="none" stroke={SEAM} strokeDasharray="3 2.5" />
           {product.print.front === "bean" && (
             <>
-              <Bean x={150} y={204} s={1.6} color={color.ink} groove={color.hex} />
-              <text x="150" y="232" fontSize="7.5" fontWeight="900" textAnchor="middle" letterSpacing="0.6" style={{ ...SANS, ...fill(color.ink) }}>
-                {brand.mark}
-              </text>
+              <Peaks cx={150} cy={206} width={46} color={color.ink} />
+              <Wordmark cx={150} y={232} size={11} color={color.ink} />
             </>
           )}
         </>
@@ -407,7 +431,7 @@ function Mug({ product, color, side, shade }: PartProps) {
         <g style={{ ...SANS, ...fill(color.ink) }}>
           <text x="150" y="268" fontSize="21" fontWeight="900" textAnchor="middle" letterSpacing="-0.8">BEYOND</text>
           <text x="150" y="290" fontSize="21" fontWeight="900" textAnchor="middle" letterSpacing="-0.8">THE CUP.</text>
-          <text x="150" y="306" fontSize="5.5" fontWeight="600" textAnchor="middle" letterSpacing="1.6" style={MONO}>
+          <text x="150" y="308" fontSize="7" textAnchor="middle" letterSpacing="1.2" style={BRAND}>
             {brand.mark}
           </text>
         </g>
@@ -441,9 +465,7 @@ function Bottle({ product, color, side, shade }: PartProps) {
       {!front && product.print.back === "bean" && (
         <>
           <Bean x={150} y={226} s={2.2} color={color.ink} groove={color.hex} />
-          <text x="150" y="268" fontSize="7" fontWeight="900" textAnchor="middle" style={{ ...SANS, ...fill(color.ink) }}>
-            {brand.mark}
-          </text>
+          <Wordmark cx={150} y={270} size={9} color={color.ink} />
         </>
       )}
     </>
@@ -472,13 +494,8 @@ function Tote({ product, color, side, shade }: PartProps) {
       </g>
       {front && product.print.front === "bean" && (
         <g>
-          <Bean x={150} y={252} s={3.2} color={color.ink} groove={color.hex} />
-          <text x="150" y="318" fontSize="20" fontWeight="900" textAnchor="middle" letterSpacing="-0.6" style={{ ...SANS, ...fill(color.ink) }}>
-            COFFEE
-          </text>
-          <text x="150" y="334" fontSize="7" fontWeight="600" textAnchor="middle" letterSpacing="3.2" style={{ ...MONO, ...fill(color.ink) }}>
-            COLLECTION
-          </text>
+          <Peaks cx={150} cy={258} width={120} color={color.ink} />
+          <Wordmark cx={150} y={312} size={30} color={color.ink} sub />
         </g>
       )}
       {!front && product.print.back === "statement" && <Statement top={222} color={color} size={24} />}
@@ -510,11 +527,9 @@ function Keychain({ color, side }: PartProps) {
           <path d="M152 148 C120 188 186 246 154 290" fill="none" stroke="#fff" strokeWidth="1.2" opacity="0.25" />
         </>
       ) : (
-        <g style={{ ...SANS, ...fill(darken(color.hex, 0.35)) }}>
-          <text x="150" y="208" fontSize="17" fontWeight="900" textAnchor="middle">COFFEE</text>
-          <text x="150" y="226" fontSize="7" fontWeight="700" textAnchor="middle" letterSpacing="2.4" style={MONO}>
-            COLLECTION
-          </text>
+        <g>
+          <Peaks cx={150} cy={184} width={70} color={darken(color.hex, 0.35)} />
+          <Wordmark cx={150} y={222} size={19} color={darken(color.hex, 0.35)} sub />
         </g>
       )}
     </>

@@ -1,8 +1,16 @@
 export const brand = {
-  name: "Coffee Collection",
-  logo: { primary: "COFFEE", secondary: "COLLECTION" },
-  /** Short mark used on product prints. */
-  mark: "COFFEE CO.",
+  name: "Lotline",
+  descriptor: "Coffee Culture",
+  logo: {
+    /** Full lockup: mountains, wordmark and "Coffee Culture". 702×317. */
+    full: "/brand/lotline-logo.png",
+    fullLight: "/brand/lotline-logo-light.png",
+    /** Mountain mark only. 722×173. */
+    icon: "/brand/lotline-icon.png",
+    iconLight: "/brand/lotline-icon-light.png",
+  },
+  /** Wordmark used on product prints. */
+  mark: "LOTLINE",
   status: "Coming soon",
 
   hero: {

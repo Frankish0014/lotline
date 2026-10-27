@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import {
   motion,
   useMotionValue,
@@ -338,8 +339,15 @@ function HeroSign({
       style={{ rotate, transformOrigin: "50% 0%" }}
     >
       <Cords height={36} />
-      <div className="relative rounded-[3px] bg-roast p-6 text-paper shadow-[0_30px_60px_-30px_rgba(26,20,17,0.7)] md:p-9">
-        <div className="flex flex-wrap items-center gap-3">
+      <div className="relative rounded-[3px] bg-roast p-6 text-paper shadow-[0_30px_60px_-30px_rgba(13,31,23,0.7)] md:p-9">
+        <Image
+          src={brand.logo.iconLight}
+          alt=""
+          width={722}
+          height={173}
+          className="absolute top-6 right-6 h-4 w-auto opacity-70 md:top-9 md:right-9 md:h-5"
+        />
+        <div className="flex flex-wrap items-center gap-3 pr-16">
           <span className="inline-flex items-center gap-2 rounded-full bg-crema px-3 py-1 font-mono text-[10px] font-semibold tracking-[0.18em] text-ink uppercase">
             <span className="relative flex h-1.5 w-1.5">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-ink/60" />

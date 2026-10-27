@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { brand } from "@/data/brand";
 import { selectCartCount, useShopStore } from "@/store/useShopStore";
@@ -29,13 +30,17 @@ export default function Header() {
             unfocus();
             closeInfo();
           }}
-          className="flex flex-col items-center justify-self-center leading-none text-ink focus-visible:outline-none"
-          aria-label={`${brand.name} — back to the collection`}
+          className="justify-self-center transition-opacity hover:opacity-80 focus-visible:outline-none"
+          aria-label={`${brand.name} ${brand.descriptor} — back to the collection`}
         >
-          <span className="text-[19px] font-black tracking-[-0.06em] md:text-[22px]">{brand.logo.primary}</span>
-          <span className="mt-[3px] font-mono text-[7px] font-medium tracking-[0.42em] md:text-[8px]">
-            {brand.logo.secondary}
-          </span>
+          <Image
+            src={brand.logo.full}
+            alt={`${brand.name} ${brand.descriptor}`}
+            width={702}
+            height={317}
+            priority
+            className="h-[40px] w-auto md:h-[54px]"
+          />
         </button>
 
         <div className="flex items-center gap-1.5 justify-self-end md:gap-2">

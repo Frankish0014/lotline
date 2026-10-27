@@ -73,6 +73,8 @@ const OAT = c("oat", "OAT", "#d8cbb6", INK_DARK);
 const LATTE = c("latte", "LATTE", "#c7a37e", INK_DARK);
 const MOCHA = c("mocha", "MOCHA", "#6a4b3a", INK_LIGHT);
 const CHARCOAL = c("charcoal", "CHARCOAL", "#2e2c2b", INK_LIGHT);
+/** The Lotline brand green. */
+const FOREST = c("forest", "FOREST", "#1b3a2c", INK_LIGHT);
 
 export const products: Product[] = [
   {
@@ -82,7 +84,7 @@ export const products: Product[] = [
     kind: "tee",
     price: null,
     print: { front: "chest", back: "statement" },
-    colors: [CREAM, ESPRESSO(), OAT],
+    colors: [CREAM, FOREST, ESPRESSO(), OAT],
     sizes: APPAREL_SIZES,
   },
   {
@@ -102,7 +104,7 @@ export const products: Product[] = [
     kind: "hoodie",
     price: null,
     print: { front: "chest", back: "statement" },
-    colors: [MOCHA, CHARCOAL, OAT],
+    colors: [FOREST, MOCHA, CHARCOAL, OAT],
     sizes: APPAREL_SIZES,
   },
   {
@@ -122,7 +124,7 @@ export const products: Product[] = [
     kind: "cap",
     price: null,
     print: { front: "bean", back: "tag" },
-    colors: [ESPRESSO(), CREAM, LATTE],
+    colors: [FOREST, ESPRESSO(), CREAM, LATTE],
     sizes: ONE_SIZE,
   },
   {
@@ -132,7 +134,7 @@ export const products: Product[] = [
     kind: "mug",
     price: null,
     print: { front: "big", back: "bean" },
-    colors: [CREAM, ESPRESSO(), c("sage", "SAGE", "#a9b39a", INK_DARK)],
+    colors: [CREAM, FOREST, ESPRESSO(), c("sage", "SAGE", "#a9b39a", INK_DARK)],
     sizes: ONE_SIZE,
   },
   {
@@ -142,7 +144,7 @@ export const products: Product[] = [
     kind: "bottle",
     price: null,
     print: { front: "big", back: "bean" },
-    colors: [CHARCOAL, OAT, CREAM],
+    colors: [FOREST, CHARCOAL, OAT, CREAM],
     sizes: ONE_SIZE,
   },
   {
@@ -152,7 +154,7 @@ export const products: Product[] = [
     kind: "tote",
     price: null,
     print: { front: "bean", back: "statement" },
-    colors: [c("natural", "NATURAL", "#e9dfcc", INK_DARK), ESPRESSO()],
+    colors: [c("natural", "NATURAL", "#e9dfcc", INK_DARK), FOREST, ESPRESSO()],
     sizes: ONE_SIZE,
   },
   {

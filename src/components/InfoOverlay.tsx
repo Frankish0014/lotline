@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { MailIcon, PhoneIcon, WhatsAppIcon } from "@/components/icons";
 import { brand, launchListMessage, mailtoLink, telLink, whatsappLink } from "@/data/brand";
@@ -73,6 +74,15 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
 function About() {
   return (
     <>
+      <motion.div {...fadeUp(0.1)} className="mb-12">
+        <Image
+          src={brand.logo.full}
+          alt={`${brand.name} ${brand.descriptor}`}
+          width={702}
+          height={317}
+          className="h-24 w-auto md:h-32"
+        />
+      </motion.div>
       <motion.div {...fadeUp(0.15)}>
         <Eyebrow>Our Story — {brand.status}</Eyebrow>
       </motion.div>
